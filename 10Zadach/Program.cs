@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace _10Zadach
 {
@@ -16,8 +17,12 @@ namespace _10Zadach
 
             switch (way)
             {
-                case 1:
+                case 0:
 
+
+
+                    break;
+                case 1:
                     break;
                 case 2:
 
@@ -25,6 +30,11 @@ namespace _10Zadach
                     user.nameRed();
                     user.nameWrite();
 
+                    break;
+
+                case 3:
+                    Personal_computer personal_computer = new Personal_computer();
+                    personal_computer.Info();
                     break;
 
                 default:
@@ -53,7 +63,7 @@ namespace _10Zadach
 
         public void nameRed()
         {
-            Console.WriteLine("Введите по очереди фамилию, имя, oтчество, возраст");
+            Console.WriteLine("Введите по очереди имя, фамилию, oтчество, возраст");
 
             name = Console.ReadLine(); //имя
             surname = Console.ReadLine(); // фамилия
@@ -67,4 +77,34 @@ namespace _10Zadach
         }
 
     }
+
+
+    class Personal_computer
+    {
+        float clockRate;
+        int volumeRAM;
+        int volumeHDD;
+
+        public void imchangeParaparameters()
+        {
+            Console.WriteLine("Введите по очереди Тактовую частоту, обьем оперативки, Обьем HDD");
+
+            //clockRate = Console.ReadLine(); //имя
+            //volumeRAM = Console.ReadLine(); // фамилия
+            //volumeHDD = Console.ReadLine(); // отчество
+        }
+
+        public void Info()
+        {
+            Console.WriteLine("Копмбютер имеет следующие характеристики:" + "\n" +
+                "Чатота процессора - " + clockRate + '\n' +
+                "Обьем оперативной памяти - " + volumeRAM + '\n' +
+                "Обьем жесткого диска - " + volumeHDD);
+        }
+
+    }
+
 }
+
+
+
