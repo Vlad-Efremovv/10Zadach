@@ -84,25 +84,16 @@ namespace _10Zadach
 
     class Personal_computer
     {
-        float clockRate;
-        int volumeRAM;
-        int volumeHDD;
-
-        public void imchangeParaparameters()
-        {
-            Console.WriteLine("Введите по очереди Тактовую частоту, обьем оперативки, Обьем HDD");
-
-            //clockRate = Console.ReadLine(); //имя
-            //volumeRAM = Console.ReadLine(); // фамилия
-            //volumeHDD = Console.ReadLine(); // отчество
-        }
+        float clockRate = (float)4.3;
+        int volumeRAM = 16;
+        int volumeHDD = 1000;
 
         public void Info()
         {
             Console.WriteLine("Копмбютер имеет следующие характеристики:" + "\n" +
-                "Чатота процессора - " + clockRate + '\n' +
-                "Обьем оперативной памяти - " + volumeRAM + '\n' +
-                "Обьем жесткого диска - " + volumeHDD);
+                "Чатота процессора - " + clockRate + " Ггц" + '\n' +
+                "Обьем оперативной памяти - " + volumeRAM + " гигабайт" + '\n' +
+                "Обьем жесткого диска - " + volumeHDD + " гигабайт");
         }
 
     }
