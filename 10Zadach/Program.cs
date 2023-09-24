@@ -50,16 +50,21 @@ namespace _10Zadach
                     break;
                 case 6:
                     Rectangle rectangle = new Rectangle();
-                    rectangle.ru[0] = 1;
-                    rectangle.ru[1] = 4;
 
-                    rectangle.ld[0] = 6;
-                    rectangle.ld[1] = -2;
+                    rectangle.KnownPoints(); //вписать известные точки
+                    rectangle.GetUnknown(); // найти неивестные точки
+                    rectangle.GetPeriment(); // найти пемиметр 
+                    rectangle.GetSquare(); // найти площадь 
 
-                    rectangle.GetUnknown();
-                    rectangle.GetPeriment();
                     break;
                 case 7:
+                    Triangle triangle = new Triangle();
+
+                    triangle.GetSideLengths();
+
+                    Console.WriteLine();
+                    triangle.TriangleInformation(triangle.GetPeriment());
+
                     break;
 
                 default:
@@ -158,13 +163,28 @@ namespace _10Zadach
         }
     }
 
-    class Rectangle
+    class Rectangle // хуйня ебаная
     {
         public int[] ru = new int[2]; // правый левый
         public int[] ld = new int[2]; // левый нижний 
 
         int[] rd = new int[2]; // правый левый
         int[] lu = new int[2]; // левый нижний 
+
+        /// <summary>
+        /// внести координаты известных точек
+        /// </summary>
+        public void KnownPoints()
+        {
+            ru[0] = 1;
+            ru[1] = 4;
+
+            ld[0] = 6;
+            ld[1] = -2;
+
+            // можно перализовать с тем что пользователь сам их вводит 
+            // через Console.ReadLine();
+        }
 
         /// <summary>
         /// найти 2 неизвестных точки при 2 известных 
@@ -178,12 +198,56 @@ namespace _10Zadach
             lu[1] = ld[0];
         }
 
-        public void GetPeriment() 
+        public void GetPeriment()
         {
-            decimal periment = ((lu[0] - ru[1]) + (ru[1] - rd[1]))*2;//периметр
+            decimal periment = ((lu[0] - ru[1]) + (ru[1] - rd[1])) * 2;//периметр
 
-            Console.WriteLine("Периметр прямокгольника - " + periment);
-        } 
+            Console.WriteLine("Периметр прямоугольника - " + periment);
+        }
+
+        public void GetSquare()
+        {
+            decimal square = (lu[0] - ru[1]) * (ru[1] - rd[1]);
+
+            Console.WriteLine("Площадь прямоугольника - " + square);
+        }
+    }
+
+    class Triangle
+    {
+        int sideAB;
+        int sideBC;
+        int sideCA;
+
+        public void GetSideLengths()
+        {
+            Console.WriteLine("Введите длины сторон: \n");
+
+            Console.Write("Сторона AB = ");
+            sideAB = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Сторона BC = ");
+            sideBC = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Сторона CA = ");
+            sideCA = Convert.ToInt32(Console.ReadLine());
+        }
+
+        public int GetPeriment()
+        {
+            int perimetr = sideAB + sideBC + sideCA;
+            return perimetr;
+        }
+
+        public void TriangleInformation(int perimetr)
+        {
+            Console.WriteLine("Треугольник имеет следующие данные :\n"
+                + "Сторона AB = " + sideAB
+                + "\nСторона BC = " + sideBC
+                + "\nСторона CA = " + sideCA 
+                + "\nПериметр треугольника = " + perimetr);
+        }
+
     }
 
 }
