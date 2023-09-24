@@ -67,6 +67,14 @@ namespace _10Zadach
 
                     break;
 
+                case 8:
+
+                    MailSend mailSend = new MailSend();
+
+                    //mailSend.WriteInfo();
+                    mailSend.OutputInfo();
+
+                    break;
                 default:
                     Console.WriteLine("Ошибка выбора задания!");
                     break;
@@ -244,11 +252,104 @@ namespace _10Zadach
             Console.WriteLine("Треугольник имеет следующие данные :\n"
                 + "Сторона AB = " + sideAB
                 + "\nСторона BC = " + sideBC
-                + "\nСторона CA = " + sideCA 
+                + "\nСторона CA = " + sideCA
                 + "\nПериметр треугольника = " + perimetr);
         }
 
     }
+
+    /// <summary>
+    /// Класс «Почтовое отправление», содержащий поля адреса 
+    /// получателя: индекс, город, улица, дом, корпус, квартира, а также, тело
+    /// письма(сообщение), и метод, выводящий адрес в виде строки.
+    /// </summary>
+    class MailSend
+    {
+        int index = 170001;// индекс
+        string city = "тверь";// город
+        string street = "ул.Спартака";//улица
+        int house = 39;// дом
+        int corps = 0;//корпус
+        int numApartment = 400;// номер квартиры
+
+        string texyLetter;//текст письма 
+
+        /// <summary>
+        /// вписать данные получателя
+        /// </summary>
+        public void WriteInfo()
+        {
+            try
+            {
+
+                Console.WriteLine("Введите все данные:");
+
+                Console.Write("Индекс = ");
+                index = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("город = ");
+                city = Console.ReadLine();
+
+                Console.Write("название улицы = ");
+                street = Console.ReadLine();
+
+                Console.Write("номер дома = ");
+                house = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("номер корпуса = ");
+                try
+                {
+                    corps = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    corps = 0;
+
+                }
+
+                Console.Write("номер квартиры = ");
+                try
+                {
+                    numApartment = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    numApartment = 0;
+                }
+
+                Console.WriteLine("Содерживое письма = ");
+                texyLetter = Console.ReadLine();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// вывод адресса получателя
+        /// </summary>
+        public void OutputInfo()
+        {
+            Console.Write
+                (
+                    "Адрес получателя: " + index + ' '
+                    + city + ' ' + street + house
+                );
+
+            if (corps != 0)
+            {
+                Console.Write(" корпус " + corps);
+            }
+            if (numApartment != 0)
+            {
+                Console.Write(" квартира " + numApartment);
+            }
+        }
+    }
+
 
 }
 
