@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
-
-
 namespace _10Zadach
 {
     internal class Program
@@ -16,82 +14,122 @@ namespace _10Zadach
         static void Main(string[] args)
         {
             Console.Write("Введите номер задния:");
-
-            int way = Convert.ToInt16(Console.ReadLine());
-
-            switch (way)
+            try
             {
-                case 0:
+
+                int way = Convert.ToInt16(Console.ReadLine());
+
+                switch (way)
+                {
+
+                    case 1:
+
+                        ///Point point = new Point();
 
 
+                        break;
+                    case 2:
 
-                    break;
-                case 1:
-                    break;
-                case 2:
+                        User user = new User();
+                        user.nameRed();
+                        user.nameWrite();
 
-                    User user = new User();
-                    user.nameRed();
-                    user.nameWrite();
+                        break;
 
-                    break;
+                    case 3:
+                        Personal_computer personal_computer = new Personal_computer();
+                        personal_computer.Info();
+                        break;
+                    case 4:
+                        Laptop laptop = new Laptop();
+                        laptop.Info();
+                        break;
+                    case 5:
+                        Phone phone = new Phone();
+                        phone.Info();
+                        break;
+                    case 6:
+                        Rectangle rectangle = new Rectangle();
 
-                case 3:
-                    Personal_computer personal_computer = new Personal_computer();
-                    personal_computer.Info();
-                    break;
-                case 4:
-                    Laptop laptop = new Laptop();
-                    laptop.Info();
-                    break;
-                case 5:
-                    Phone phone = new Phone();
-                    phone.Info();
-                    break;
-                case 6:
-                    Rectangle rectangle = new Rectangle();
+                        rectangle.KnownPoints(); //вписать известные точки
+                        rectangle.GetUnknown(); // найти неивестные точки
+                        rectangle.GetPeriment(); // найти пемиметр 
+                        rectangle.GetSquare(); // найти площадь 
 
-                    rectangle.KnownPoints(); //вписать известные точки
-                    rectangle.GetUnknown(); // найти неивестные точки
-                    rectangle.GetPeriment(); // найти пемиметр 
-                    rectangle.GetSquare(); // найти площадь 
+                        break;
+                    case 7:
+                        Triangle triangle = new Triangle();
 
-                    break;
-                case 7:
-                    Triangle triangle = new Triangle();
+                        triangle.GetSideLengths();
 
-                    triangle.GetSideLengths();
+                        Console.WriteLine();
+                        triangle.TriangleInformation(triangle.GetPeriment());
 
-                    Console.WriteLine();
-                    triangle.TriangleInformation(triangle.GetPeriment());
+                        break;
 
-                    break;
+                    case 8:
 
-                case 8:
+                        MailSend mailSend = new MailSend();
 
-                    MailSend mailSend = new MailSend();
+                        //mailSend.WriteInfo();
+                        mailSend.OutputInfo();
 
-                    //mailSend.WriteInfo();
-                    mailSend.OutputInfo();
+                        break;
 
-                    break;
-                default:
-                    Console.WriteLine("Ошибка выбора задания!");
-                    break;
+                    case 9:
+
+                        Circumference circumference = new Circumference();
+
+                        //circumference.GenRadius(); //ввести радиус самому
+
+                        double len = circumference.LengthCircumference(); // получить длиннну окружности
+                        Console.WriteLine("Длинна окружности = " + len);
+
+                        double area = circumference.AreaCircumference();// получить площадь 
+                        Console.WriteLine("Площать окружности = " + area);
+
+                        break;
+                    case 10:
+
+                        Square square = new Square();
+
+                        Console.WriteLine("Периметр квадрата = " + square.GetPeriment());
+                        Console.WriteLine("Полщадь квадрата = " + square.GetSquare());
+
+                        break;
+                    default:
+                        Console.WriteLine("Ошибка выбора задания!");
+                        break;
+                }
+
+                Console.ReadLine();
+
             }
-
-            Console.ReadLine();
+            catch (Exception)
+            {
+                Console.Write("Ошибка!");
+                throw;
+            }
         }
     }
 
+    /// <summary>
+    /// Класс «Точка», имеющего поля X, Y, Z и метод перемещения 
+    ///MoveBy(dx, dy, dz), смещающий точку на заданные значения по X, Y, Z.
+    /// </summary>
     internal class Point
     {
         int x = 0,
             y = 0,
             z = 0;
-
+        ///не понял суть задания 
     }
 
+    /// <summary>
+    /// Класс «Пользователь»имеющий поля фамилия, имя, отчество и 
+    ///возраст, а также метод ФИО, выводящее фамилию, имя и отчество, 
+    ///разделенные пробелами в виде строки.
+    /// </summary>
     internal class User
     {
         string name; //имя
@@ -99,6 +137,9 @@ namespace _10Zadach
         string patronymic; // отчество
         int age;// количество лет 
 
+        /// <summary>
+        /// внести данные
+        /// </summary>
         public void nameRed()
         {
             Console.WriteLine("Введите по очереди имя, фамилию, oтчество, возраст");
@@ -109,6 +150,9 @@ namespace _10Zadach
             age = Convert.ToInt32(Console.ReadLine()); // количество лет 
         }
 
+        /// <summary>
+        /// вывод в консоль
+        /// </summary>
         public void nameWrite()
         {
             Console.WriteLine(surname + " " + name + " " + patronymic + " " + age);
@@ -116,13 +160,21 @@ namespace _10Zadach
 
     }
 
-
+    /// <summary>
+    /// Класс «Персональный компьютер»,имеющий поля модель, 
+    ///тактовая частота процессора,объем оперативной памяти, объем
+    ///жесткого диска и метод Info, выводящий информацию о персональном
+    ///компьютере в виде строки.
+    /// </summary>
     class Personal_computer
     {
-        float clockRate = (float)4.3;
-        int volumeRAM = 16;
-        int volumeHDD = 1000;
+        float clockRate = (float)4.3; // тактовая частота
+        int volumeRAM = 16; // обьем оперативки
+        int volumeHDD = 1000; // обьем жесткого
 
+        /// <summary>
+        /// вывод информации о пк
+        /// </summary>
         public void Info()
         {
             Console.WriteLine("Копмбютер имеет следующие характеристики:" + "\n" +
@@ -133,14 +185,22 @@ namespace _10Zadach
 
     }
 
+    /// <summary>
+    /// Класс «Ноутбук», имеющий поля модель, тактовая частота 
+    ///процессора, объем оперативной памяти, объем жесткого диска, масса и
+    ///метод Info, выводящий информацию о ноутбуке в виде строки.
+    /// </summary>
     class Laptop
     {
-        string model = "HUAWEI MateBook D 15";
-        float clockRate = (float)4.3;
-        int volumeRAM = 16;
-        int volumeHDD = 1000;
-        float mass = (float)1.88;
+        string model = "HUAWEI MateBook D 15"; // модель
+        float clockRate = (float)4.3; // частота
+        int volumeRAM = 16;  // обьем оперы
+        int volumeHDD = 1000; // обьем жесткого
+        float mass = (float)1.88; // вес
 
+        /// <summary>
+        /// вывести онфу о ноутбуке
+        /// </summary>
         public void Info()
         {
             Console.WriteLine("Ноутбук имеет следующие характеристики:" + "\n" +
@@ -152,13 +212,19 @@ namespace _10Zadach
         }
     }
 
+    /// <summary>
+    /// Класс «Смартфон», имеющий поля модель, тактовая частота 
+    ///процессора, объем оперативной памяти, объем постоянной памяти, тип
+    ///операционной системы, масса и свойство Info, выводящее информацию о
+    ///смартфоне в виде строки.
+    /// </summary>
     class Phone
     {
-        string model = "HUAWEI NOVA 5T";
-        float clockRate = (float)2.3;
-        int volumeRAM = 6;
-        int volumeHDD = 128;
-        float mass = (float)300;
+        string model = "HUAWEI NOVA 5T"; // модель
+        float clockRate = (float)2.3; // частота проца
+        int volumeRAM = 6; // обьем оперы
+        int volumeHDD = 128; // обьем постоянной
+        float mass = (float)300; // вес
 
         public void Info()
         {
@@ -171,6 +237,11 @@ namespace _10Zadach
         }
     }
 
+    /// <summary>
+    /// Объект «Треугольник» имеющий поля с длинами сторон, и 
+    ///методы,вычисляющие периметр и выводящий длины сторон, а также
+    ///периметр треугольника на экран.
+    /// </summary>
     class Rectangle // хуйня ебаная
     {
         public int[] ru = new int[2]; // правый левый
@@ -206,6 +277,9 @@ namespace _10Zadach
             lu[1] = ld[0];
         }
 
+        /// <summary>
+        /// найти периметр
+        /// </summary>
         public void GetPeriment()
         {
             decimal periment = ((lu[0] - ru[1]) + (ru[1] - rd[1])) * 2;//периметр
@@ -213,20 +287,29 @@ namespace _10Zadach
             Console.WriteLine("Периметр прямоугольника - " + periment);
         }
 
+        /// <summary>
+        /// найти площадь
+        /// </summary>
         public void GetSquare()
         {
-            decimal square = (lu[0] - ru[1]) * (ru[1] - rd[1]);
+            decimal square = (lu[0] - ru[1]) * (ru[1] - rd[1]); // площадь
 
             Console.WriteLine("Площадь прямоугольника - " + square);
         }
     }
 
+    /// <summary>
+    /// Объект «Треугольник» имеющий поля с длинами сторон, и 
+    ///методы,вычисляющие периметр и выводящий длины сторон, а также
+    ///периметр треугольника на экран.
+    /// </summary>
     class Triangle
     {
-        int sideAB;
+        int sideAB; // стороны
         int sideBC;
         int sideCA;
 
+        // внести размеры
         public void GetSideLengths()
         {
             Console.WriteLine("Введите длины сторон: \n");
@@ -239,6 +322,22 @@ namespace _10Zadach
 
             Console.Write("Сторона CA = ");
             sideCA = Convert.ToInt32(Console.ReadLine());
+
+            if (sideAB + sideBC < sideCA)
+            {
+                Console.WriteLine("Введены неправильные значения");
+                Environment.Exit(0);
+            }
+            if (sideCA + sideBC < sideAB)
+            {
+                Console.WriteLine("Введены неправильные значения");
+                Environment.Exit(0);
+            }
+            if (sideAB + sideCA < sideBC)
+            {
+                Console.WriteLine("Введены неправильные значения");
+                Environment.Exit(0);
+            }
         }
 
         public int GetPeriment()
@@ -350,7 +449,76 @@ namespace _10Zadach
         }
     }
 
+    /// <summary>
+    /// Класс «Окружность», содержащая поля с координатами центра 
+    /// окружности и радиуса, а также методы, вычисляющие длину окружности и
+    ///площадь.
+    /// </summary>
+    class Circumference
+    {
+        public int[] center = new int[2];//кординвты центра
+        int radius = 15; // радиус
 
+        /// <summary>
+        /// ввести радиус
+        /// </summary>
+        public void GenRadius()
+        {
+            Console.Write("Введите значение радиуса = ");
+
+            radius = Convert.ToInt32(Console.ReadLine());
+        }
+
+        /// <summary>
+        /// найти длинну окружности
+        /// </summary>
+        /// <returns></returns>
+        public double LengthCircumference()
+        {
+            double lenCir = 2 * 3.14 * radius;
+
+            return lenCir;
+        }
+
+        /// <summary>
+        /// найти площадь
+        /// </summary>
+        /// <returns></returns>
+        public double AreaCircumference()
+        {
+            double area = 3.14 * radius * radius;
+
+            return area;
+        }
+    }
+
+    class Square
+    {
+        int[] lu = new int[2]; // координаты верхней левой
+        int len = 10; // длинна стороны
+
+        /// <summary>
+        /// найти периметр
+        /// </summary>
+        /// <returns></returns>
+        public int GetPeriment()
+        {
+            int perimetr = len * 4;
+
+            return perimetr;
+        }
+
+        /// <summary>
+        /// найти площадь
+        /// </summary>
+        /// <returns></returns>
+        public double GetSquare()
+        {
+            double square = len * len;
+
+            return square;
+        }
+    }
 }
 
 
