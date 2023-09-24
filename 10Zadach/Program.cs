@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -56,6 +57,7 @@ namespace _10Zadach
                     rectangle.ld[1] = -2;
 
                     rectangle.GetUnknown();
+                    rectangle.GetPeriment();
                     break;
                 case 7:
                     break;
@@ -164,10 +166,24 @@ namespace _10Zadach
         int[] rd = new int[2]; // правый левый
         int[] lu = new int[2]; // левый нижний 
 
+        /// <summary>
+        /// найти 2 неизвестных точки при 2 известных 
+        /// </summary>
         public void GetUnknown()
         {
-            Console.WriteLine(ru[1]);
+            rd[0] = ld[1];
+            rd[1] = rd[0];
+
+            lu[0] = rd[1];
+            lu[1] = ld[0];
         }
+
+        public void GetPeriment() 
+        {
+            decimal periment = ((lu[0] - ru[1]) + (ru[1] - rd[1]))*2;//периметр
+
+            Console.WriteLine("Периметр прямокгольника - " + periment);
+        } 
     }
 
 }
