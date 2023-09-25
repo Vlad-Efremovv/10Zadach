@@ -46,7 +46,6 @@ namespace _10Zadach
                         }
 
                         break;
-
                     case 3:
 
                         if (ChoosingWayInput())
@@ -63,61 +62,102 @@ namespace _10Zadach
 
                         break;
                     case 4:
-                        Laptop laptop = new Laptop();
-                        laptop.Info();
+                        if (ChoosingWayInput())
+                        {
+                            LaptopInput laptopInput = new LaptopInput();
+                            laptopInput.GetInfo();
+                            laptopInput.Info();
+                        }
+                        else
+                        {
+                            Laptop laptop = new Laptop();
+                            laptop.Info();
+                        }
                         break;
                     case 5:
-                        Phone phone = new Phone();
-                        phone.Info();
+                        if (ChoosingWayInput())
+                        {
+                            PhoneInput phoneInput = new PhoneInput();
+                            phoneInput.GetInfo();
+                            phoneInput.Info();
+                        }
+                        else
+                        {
+                            Phone phone = new Phone();
+                            phone.Info();
+                        }
                         break;
                     case 6:
-                        Rectangle rectangle = new Rectangle();
+                        if (ChoosingWayInput())
+                        {
+                            RectangleInput rectangleUnput = new RectangleInput();
+                            rectangleUnput.GetPoint();
+                            rectangleUnput.GetPeriment();
+                            rectangleUnput.GetSquare();
 
-                        rectangle.KnownPoints(); //вписать известные точки
-
-                        rectangle.GetPeriment(); // найти пемиметр 
-                        rectangle.GetSquare(); // найти площадь 
-
+                        }
+                        else
+                        {
+                            Rectangle rectangle = new Rectangle();
+                            rectangle.GetPeriment();
+                            rectangle.GetSquare();
+                        }
                         break;
                     case 7:
-                        Triangle triangle = new Triangle();
-
-                        triangle.GetSideLengths();
-
-                        Console.WriteLine();
-                        triangle.TriangleInformation(triangle.GetPeriment());
-
+                        if (ChoosingWayInput())
+                        {
+                            TriangleInput triangleInput = new TriangleInput();
+                            triangleInput.GetSideLengths();
+                            triangleInput.TriangleInformation(triangleInput.GetPeriment());
+                        }
+                        else
+                        {
+                            Triangle triangle = new Triangle();
+                            triangle.TriangleInformation(triangle.GetPeriment());
+                        }
                         break;
-
                     case 8:
-
-                        MailSend mailSend = new MailSend();
-
-                        //mailSend.WriteInfo();
-                        mailSend.OutputInfo();
-
+                        if (ChoosingWayInput())
+                        {
+                            MailSendInput mailSendInput = new MailSendInput();
+                            mailSendInput.WriteInfo();
+                            mailSendInput.OutputInfo();
+                        }
+                        else
+                        {
+                            MailSend mailSend = new MailSend();
+                            mailSend.OutputInfo();
+                        }
                         break;
-
                     case 9:
-
-                        Circumference circumference = new Circumference();
-
-                        //circumference.GenRadius(); //ввести радиус самому
-
-                        double len = circumference.LengthCircumference(); // получить длиннну окружности
-                        Console.WriteLine("Длинна окружности = " + len);
-
-                        double area = circumference.AreaCircumference();// получить площадь 
-                        Console.WriteLine("Площать окружности = " + area);
-
+                        if (ChoosingWayInput())
+                        {
+                            CircumferenceInput circumferenceInput = new CircumferenceInput();
+                            circumferenceInput.GetRadius();
+                            circumferenceInput.LengthCircumference();
+                            circumferenceInput.AreaCircumference();
+                        }
+                        else
+                        {
+                            Circumference circumference = new Circumference();
+                            circumference.LengthCircumference();
+                            circumference.AreaCircumference();
+                        }
                         break;
                     case 10:
-
-                        Square square = new Square();
-
-                        Console.WriteLine("Периметр квадрата = " + square.GetPeriment());
-                        Console.WriteLine("Полщадь квадрата = " + square.GetSquare());
-
+                        if (ChoosingWayInput())
+                        {
+                            SquareInput squareInput = new SquareInput();
+                            squareInput.GetLen();
+                            squareInput.GetPeriment();
+                            squareInput.GetSquare();
+                        }
+                        else
+                        {
+                            Square square = new Square();
+                            square.GetPeriment();
+                            square.GetSquare();
+                        }
                         break;
                     default:
                         Console.WriteLine("Ошибка выбора задания!");
@@ -134,6 +174,10 @@ namespace _10Zadach
             }
         }
 
+        /// <summary>
+        /// Возвращает bool для выбора способа работы программы
+        /// </summary>
+        /// <returns></returns>
         static bool ChoosingWayInput()
         {
             Console.Write("Вы хотите сами вводить данные? 0(нет)/1(да) - ");
@@ -198,7 +242,16 @@ namespace _10Zadach
             name = Console.ReadLine(); //имя
             surname = Console.ReadLine(); // фамилия
             patronymic = Console.ReadLine(); // отчество
-            age = Convert.ToInt32(Console.ReadLine()); // количество лет 
+
+            try
+            {
+                age = Convert.ToInt32(Console.ReadLine()); // количество лет 
+            }
+            catch (Exception)
+            {
+                age = 0;
+                Console.WriteLine("При вводе возроста была ошибка.");
+            }
         }
     }
 
@@ -233,14 +286,22 @@ namespace _10Zadach
         /// </summary>
         public void GetInfo()
         {
-            Console.Write("Частота процессора = ");
-            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+            try
+            {
+                Console.Write("Частота процессора = ");
+                clockRate = (float)Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Обьем RAM = ");
-            volumeRAM = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем RAM = ");
+                volumeRAM = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Обьем HDD = ");
-            volumeHDD = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем HDD = ");
+                volumeHDD = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
         }
     }
 
@@ -275,20 +336,28 @@ namespace _10Zadach
     {
         public void GetInfo()
         {
-            Console.Write("Модель ноутбука - ");
-            model = Console.ReadLine();
+            try
+            {
+                Console.Write("Модель ноутбука - ");
+                model = Console.ReadLine();
 
-            Console.Write("Частота процессора - ");
-            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+                Console.Write("Частота процессора - ");
+                clockRate = (float)Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Обьем оперативной памяти - ");
-            volumeRAM = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем оперативной памяти - ");
+                volumeRAM = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Обьем жесткого диска - ");
-            volumeHDD = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем жесткого диска - ");
+                volumeHDD = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Масса - ");
-            mass = (float)Convert.ToDouble(Console.ReadLine());
+                Console.Write("Масса - ");
+                mass = (float)Convert.ToDouble(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
         }
     }
 
@@ -321,20 +390,28 @@ namespace _10Zadach
     {
         public void GetInfo()
         {
-            Console.Write("Модель телеофна - ");
-            model = Console.ReadLine();
+            try
+            {
+                Console.Write("Модель телеофна - ");
+                model = Console.ReadLine();
 
-            Console.Write("Частота процессора - ");
-            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+                Console.Write("Частота процессора - ");
+                clockRate = (float)Convert.ToDouble(Console.ReadLine());
 
-            Console.Write("Обьем оперативной памяти - ");
-            volumeRAM = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем оперативной памяти - ");
+                volumeRAM = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Обьем постоянной памяти - ");
-            volumeHDD = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Обьем постоянной памяти - ");
+                volumeHDD = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Масса - ");
-            mass = (float)Convert.ToDouble(Console.ReadLine());
+                Console.Write("Масса - ");
+                mass = (float)Convert.ToDouble(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
         }
     }
 
@@ -368,7 +445,7 @@ namespace _10Zadach
         /// <summary>
         /// найти 2 неизвестных точки при 2 известных 
         /// </summary>
-        public void GetUnknown()
+        protected void GetUnknown()
         {
             ld[0] = ld[0];
             ld[1] = rd[1];
@@ -402,17 +479,26 @@ namespace _10Zadach
     {
         public void GetPoint()
         {
-            Console.Write("Введити значение Х для верхней левой точки - ");
-            lu[0] = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                Console.Write("Введити значение Х для верхней левой точки - ");
+                lu[0] = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Введити значение Y для верхней левой точки - ");
-            lu[1] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Введити значение Y для верхней левой точки - ");
+                lu[1] = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Введити значение Х для нижней правой точки - ");
-            rd[0] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Введити значение Х для нижней правой точки - ");
+                rd[0] = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Введити значение Y для нижней правой точки - ");
-            rd[1] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Введити значение Y для нижней правой точки - ");
+                rd[1] = Convert.ToInt32(Console.ReadLine());
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
 
             GetUnknown();
         }
@@ -452,14 +538,22 @@ namespace _10Zadach
         {
             Console.WriteLine("Введите длины сторон: \n");
 
-            Console.Write("Сторона AB = ");
-            sideAB = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                Console.Write("Сторона AB = ");
+                sideAB = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Сторона BC = ");
-            sideBC = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Сторона BC = ");
+                sideBC = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Сторона CA = ");
-            sideCA = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Сторона CA = ");
+                sideCA = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
 
             if (sideAB + sideBC < sideCA)
             {
@@ -611,11 +705,21 @@ namespace _10Zadach
         public void GetRadius()
         {
             Console.Write("Введите значение радиуса = ");
-
-            radius = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                radius = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
         }
     }
 
+    /// <summary>
+    /// Квадрат 10 задание 
+    /// </summary>
     class Square
     {
         protected int[] lu = new int[2]; // координаты верхней левой
@@ -644,12 +748,20 @@ namespace _10Zadach
         }
     }
 
-    class SquareInput : Square 
+    class SquareInput : Square
     {
         public void GetLen()
         {
             Console.Write("Введите длину стороны - ");
-            len = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                len = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("При вводе данных произошла ошибка!");
+                throw;
+            }
         }
     }
 }
