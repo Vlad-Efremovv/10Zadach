@@ -169,10 +169,10 @@ namespace _10Zadach
     /// </summary>
     internal class User
     {
-        string name = "Георгий"; //имя
-        string surname = "Естенский";// фамилия
-        string patronymic = "Саидович"; // отчество
-        int age = 19;// количество лет 
+        protected string name = "Георгий"; //имя
+        protected string surname = "Естенский";// фамилия
+        protected string patronymic = "Саидович"; // отчество
+        protected int age = 19;// количество лет 
 
         /// <summary>
         /// вывод в консоль
@@ -184,13 +184,8 @@ namespace _10Zadach
 
     }
 
-    class UserInput // организован ввод пользователем .|| хотел сделать наследованием чтобы добавить 1 метод но не получилось
+    class UserInput : User // организован ввод пользователем
     {
-        string name; //имя
-        string surname;// фамилия
-        string patronymic; // отчество
-        int age;// количество лет 
-
         /// <summary>
         /// внести данные
         /// </summary>
@@ -203,15 +198,6 @@ namespace _10Zadach
             patronymic = Console.ReadLine(); // отчество
             age = Convert.ToInt32(Console.ReadLine()); // количество лет 
         }
-
-        /// <summary>
-        /// вывод в консоль
-        /// </summary>
-        public void NameWrite()
-        {
-            Console.WriteLine(surname + " " + name + " " + patronymic + " " + age);
-        }
-
     }
 
     /// <summary>
@@ -222,9 +208,9 @@ namespace _10Zadach
     /// </summary>
     class PersonalComputer
     {
-        float clockRate = (float)4.3; // тактовая частота
-        int volumeRAM = 16; // обьем оперативки
-        int volumeHDD = 1000; // обьем жесткого
+        protected float clockRate = (float)4.3; // тактовая частота
+        protected int volumeRAM = 16; // обьем оперативки
+        protected int volumeHDD = 1000; // обьем жесткого
 
         /// <summary>
         /// вывод информации о пк
@@ -238,23 +224,8 @@ namespace _10Zadach
         }
     }
 
-    class PersonalComputerImput
+    class PersonalComputerImput : PersonalComputer
     {
-        float clockRate = (float)4.3; // тактовая частота
-        int volumeRAM = 16; // обьем оперативки
-        int volumeHDD = 1000; // обьем жесткого
-
-        /// <summary>
-        /// вывод информации о пк
-        /// </summary>
-        public void Info()
-        {
-            Console.WriteLine("Копмбютер имеет следующие характеристики:" + "\n" +
-                "Чатота процессора - " + clockRate + " Ггц" + '\n' +
-                "Обьем оперативной памяти - " + volumeRAM + " гигабайт" + '\n' +
-                "Обьем жесткого диска - " + volumeHDD + " гигабайт");
-        }
-
         /// <summary>
         /// Ввести данные
         /// </summary>
@@ -278,14 +249,14 @@ namespace _10Zadach
     /// </summary>
     class Laptop
     {
-        string model = "HUAWEI MateBook D 15"; // модель
-        float clockRate = (float)4.3; // частота
-        int volumeRAM = 16;  // обьем оперы
-        int volumeHDD = 1000; // обьем жесткого
-        float mass = (float)1.88; // вес
+        protected string model = "HUAWEI MateBook D 15"; // модель
+        protected float clockRate = (float)4.3; // частота
+        protected int volumeRAM = 16;  // обьем оперы
+        protected int volumeHDD = 1000; // обьем жесткого
+        protected float mass = (float)1.88; // вес
 
         /// <summary>
-        /// вывести онфу о ноутбуке
+        /// вывести инфу о ноутбуке
         /// </summary>
         public void Info()
         {
@@ -298,6 +269,27 @@ namespace _10Zadach
         }
     }
 
+    class LaptopInput : Laptop
+    {
+        public void GetInfo()
+        {
+            Console.Write("Модель ноутбука - ");
+            model = Console.ReadLine();
+
+            Console.Write("Частота процессора - ");
+            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Обьем оперативной памяти - ");
+            volumeRAM = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Обьем жесткого диска - ");
+            volumeHDD = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Масса - ");
+            mass = (float)Convert.ToDouble(Console.ReadLine());
+        }
+    }
+
     /// <summary>
     /// Класс «Смартфон», имеющий поля модель, тактовая частота 
     ///процессора, объем оперативной памяти, объем постоянной памяти, тип
@@ -306,20 +298,41 @@ namespace _10Zadach
     /// </summary>
     class Phone
     {
-        string model = "HUAWEI NOVA 5T"; // модель
-        float clockRate = (float)2.3; // частота проца
-        int volumeRAM = 6; // обьем оперы
-        int volumeHDD = 128; // обьем постоянной
-        float mass = (float)300; // вес
+        protected string model = "HUAWEI NOVA 5T"; // модель
+        protected float clockRate = (float)2.3; // частота проца
+        protected int volumeRAM = 6; // обьем оперы
+        protected int volumeHDD = 128; // обьем постоянной
+        protected float mass = (float)300; // вес
 
         public void Info()
         {
             Console.WriteLine("Телефон имеет следующие характеристики:" + "\n" +
-                "Модель ноутбука - " + model + "\n" +
+                "Модель - " + model + "\n" +
                 "Чатота процессора - " + clockRate + " Ггц" + '\n' +
                 "Обьем оперативной памяти - " + volumeRAM + " гигабайт" + '\n' +
-                "Обьем жесткого диска - " + volumeHDD + " гигабайт \n" +
+                "Обьем постоянной памяти - " + volumeHDD + " гигабайт \n" +
                 "Масса - " + mass + " грамм");
+        }
+    }
+
+    class PhoneInput : Phone
+    {
+        public void GetInfo()
+        {
+            Console.Write("Модель телеофна - ");
+            model = Console.ReadLine();
+
+            Console.Write("Частота процессора - ");
+            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Обьем оперативной памяти - ");
+            volumeRAM = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Обьем постоянной памяти - ");
+            volumeHDD = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Масса - ");
+            mass = (float)Convert.ToDouble(Console.ReadLine());
         }
     }
 
@@ -330,25 +343,23 @@ namespace _10Zadach
     /// </summary>
     class Rectangle
     {
-        public int[] ru = new int[2]; // правый левый
-        public int[] ld = new int[2]; // левый нижний 
+        protected int[] lu = new int[2]; // правый левый
+        protected int[] rd = new int[2]; // левый нижний 
 
-        int[] rd = new int[2]; // правый левый
-        int[] lu = new int[2]; // левый нижний 
+        protected int[] ld = new int[2]; // правый левый
+        protected int[] ru = new int[2]; // левый нижний 
 
         /// <summary>
         /// внести координаты известных точек
         /// </summary>
         public void KnownPoints()
         {
-            ru[0] = 1;
-            ru[1] = 4;
+            lu[0] = 1;
+            lu[1] = 4;
 
-            ld[0] = 6;
-            ld[1] = -2;
+            rd[0] = 6;
+            rd[1] = -2;
 
-            // можно перализовать с тем что пользователь сам их вводит 
-            // через Console.ReadLine();
         }
 
         /// <summary>
@@ -356,11 +367,11 @@ namespace _10Zadach
         /// </summary>
         public void GetUnknown()
         {
-            rd[0] = ld[1];
-            rd[1] = rd[0];
+            ld[0] = ld[1];
+            ld[1] = rd[0];
 
-            lu[0] = rd[1];
-            lu[1] = ld[0];
+            ru[0] = rd[1];
+            ru[1] = ld[0];
         }
 
         /// <summary>
@@ -368,7 +379,7 @@ namespace _10Zadach
         /// </summary>
         public void GetPeriment()
         {
-            decimal periment = ((lu[0] - ru[1]) + (ru[1] - rd[1])) * 2;//периметр
+            decimal periment = ((ru[0] - lu[1]) + (lu[1] - ld[1])) * 2;//периметр
 
             Console.WriteLine("Периметр прямоугольника - " + periment);
         }
@@ -378,7 +389,7 @@ namespace _10Zadach
         /// </summary>
         public void GetSquare()
         {
-            decimal square = (lu[0] - ru[1]) * (ru[1] - rd[1]); // площадь
+            decimal square = (ru[0] - lu[1]) * (lu[1] - ld[1]); // площадь
 
             Console.WriteLine("Площадь прямоугольника - " + square);
         }
