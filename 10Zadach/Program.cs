@@ -30,15 +30,35 @@ namespace _10Zadach
                         break;
                     case 2:
 
-                        User user = new User();
-                        user.nameRed();
-                        user.nameWrite();
+                        if (ChoosingWayInput())
+                        {
+                            UserInput userInput = new UserInput();
+                            userInput.NameRed();
+                            userInput.NameWrite();
+
+                        }
+                        else
+                        {
+                            User user = new User();
+                            user.NameWrite();
+                        }
 
                         break;
 
                     case 3:
-                        Personal_computer personal_computer = new Personal_computer();
-                        personal_computer.Info();
+
+                        if (ChoosingWayInput())
+                        {
+                            PersonalComputerImput personalComputerImput = new PersonalComputerImput();
+                            personalComputerImput.GetInfo();
+                            personalComputerImput.Info();
+                        }
+                        else
+                        {
+                            PersonalComputer personalComputer = new PersonalComputer();
+                            personalComputer.Info();
+                        }
+
                         break;
                     case 4:
                         Laptop laptop = new Laptop();
@@ -111,6 +131,23 @@ namespace _10Zadach
                 throw;
             }
         }
+
+        static bool ChoosingWayInput()
+        {
+            Console.Write("Вы хотите сами вводить данные? 0(нет)/1(да) - ");
+
+            int flag = Convert.ToInt32(Console.ReadLine());
+
+            bool way = false;
+
+            if (flag > 0)
+            {
+                way = true;
+            }
+
+            return way;
+        }
+
     }
 
     /// <summary>
@@ -132,6 +169,23 @@ namespace _10Zadach
     /// </summary>
     internal class User
     {
+        string name = "Георгий"; //имя
+        string surname = "Естенский";// фамилия
+        string patronymic = "Саидович"; // отчество
+        int age = 19;// количество лет 
+
+        /// <summary>
+        /// вывод в консоль
+        /// </summary>
+        public void NameWrite()
+        {
+            Console.WriteLine(surname + " " + name + " " + patronymic + " " + age);
+        }
+
+    }
+
+    class UserInput // организован ввод пользователем .|| хотел сделать наследованием чтобы добавить 1 метод но не получилось
+    {
         string name; //имя
         string surname;// фамилия
         string patronymic; // отчество
@@ -140,7 +194,7 @@ namespace _10Zadach
         /// <summary>
         /// внести данные
         /// </summary>
-        public void nameRed()
+        public void NameRed()
         {
             Console.WriteLine("Введите по очереди имя, фамилию, oтчество, возраст");
 
@@ -153,7 +207,7 @@ namespace _10Zadach
         /// <summary>
         /// вывод в консоль
         /// </summary>
-        public void nameWrite()
+        public void NameWrite()
         {
             Console.WriteLine(surname + " " + name + " " + patronymic + " " + age);
         }
@@ -166,7 +220,25 @@ namespace _10Zadach
     ///жесткого диска и метод Info, выводящий информацию о персональном
     ///компьютере в виде строки.
     /// </summary>
-    class Personal_computer
+    class PersonalComputer
+    {
+        float clockRate = (float)4.3; // тактовая частота
+        int volumeRAM = 16; // обьем оперативки
+        int volumeHDD = 1000; // обьем жесткого
+
+        /// <summary>
+        /// вывод информации о пк
+        /// </summary>
+        public void Info()
+        {
+            Console.WriteLine("Копмбютер имеет следующие характеристики:" + "\n" +
+                "Чатота процессора - " + clockRate + " Ггц" + '\n' +
+                "Обьем оперативной памяти - " + volumeRAM + " гигабайт" + '\n' +
+                "Обьем жесткого диска - " + volumeHDD + " гигабайт");
+        }
+    }
+
+    class PersonalComputerImput
     {
         float clockRate = (float)4.3; // тактовая частота
         int volumeRAM = 16; // обьем оперативки
@@ -183,6 +255,20 @@ namespace _10Zadach
                 "Обьем жесткого диска - " + volumeHDD + " гигабайт");
         }
 
+        /// <summary>
+        /// Ввести данные
+        /// </summary>
+        public void GetInfo()
+        {
+            Console.Write("Частота процессора = ");
+            clockRate = (float)Convert.ToDouble(Console.ReadLine());
+
+            Console.Write("Обьем RAM = ");
+            volumeRAM = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Обьем HDD = ");
+            volumeHDD = Convert.ToInt32(Console.ReadLine());
+        }
     }
 
     /// <summary>
@@ -242,7 +328,7 @@ namespace _10Zadach
     ///методы,вычисляющие периметр и выводящий длины сторон, а также
     ///периметр треугольника на экран.
     /// </summary>
-    class Rectangle // хуйня ебаная
+    class Rectangle
     {
         public int[] ru = new int[2]; // правый левый
         public int[] ld = new int[2]; // левый нижний 
