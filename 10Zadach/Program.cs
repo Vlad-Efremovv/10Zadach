@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,7 +74,7 @@ namespace _10Zadach
                         Rectangle rectangle = new Rectangle();
 
                         rectangle.KnownPoints(); //вписать известные точки
-                        rectangle.GetUnknown(); // найти неивестные точки
+
                         rectangle.GetPeriment(); // найти пемиметр 
                         rectangle.GetSquare(); // найти площадь 
 
@@ -350,7 +352,7 @@ namespace _10Zadach
         protected int[] ru = new int[2]; // левый нижний 
 
         /// <summary>
-        /// внести координаты известных точек
+        /// координаты известных точек
         /// </summary>
         public void KnownPoints()
         {
@@ -360,6 +362,7 @@ namespace _10Zadach
             rd[0] = 6;
             rd[1] = -2;
 
+            GetUnknown();
         }
 
         /// <summary>
@@ -367,11 +370,11 @@ namespace _10Zadach
         /// </summary>
         public void GetUnknown()
         {
-            ld[0] = ld[1];
-            ld[1] = rd[0];
+            ld[0] = ld[0];
+            ld[1] = rd[1];
 
-            ru[0] = rd[1];
-            ru[1] = ld[0];
+            ru[0] = rd[0];
+            ru[1] = ld[1];
         }
 
         /// <summary>
@@ -379,7 +382,7 @@ namespace _10Zadach
         /// </summary>
         public void GetPeriment()
         {
-            decimal periment = ((ru[0] - lu[1]) + (lu[1] - ld[1])) * 2;//периметр
+            decimal periment = ((ru[0] - lu[0]) + (lu[1] - ld[1])) * 2;//периметр
 
             Console.WriteLine("Периметр прямоугольника - " + periment);
         }
@@ -389,9 +392,29 @@ namespace _10Zadach
         /// </summary>
         public void GetSquare()
         {
-            decimal square = (ru[0] - lu[1]) * (lu[1] - ld[1]); // площадь
+            decimal square = (ru[0] - lu[0]) * (lu[1] - ld[1]); // площадь
 
             Console.WriteLine("Площадь прямоугольника - " + square);
+        }
+    }
+
+    class RectangleInput : Rectangle
+    {
+        public void GetPoint()
+        {
+            Console.Write("Введити значение Х для верхней левой точки - ");
+            lu[0] = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Введити значение Y для верхней левой точки - ");
+            lu[1] = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Введити значение Х для нижней правой точки - ");
+            rd[0] = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Введити значение Y для нижней правой точки - ");
+            rd[1] = Convert.ToInt32(Console.ReadLine());
+
+            GetUnknown();
         }
     }
 
@@ -402,11 +425,29 @@ namespace _10Zadach
     /// </summary>
     class Triangle
     {
-        int sideAB; // стороны
-        int sideBC;
-        int sideCA;
+        protected int sideAB = 10; // стороны
+        protected int sideBC = 10;
+        protected int sideCA = 10;
 
-        // внести размеры
+        public int GetPeriment()
+        {
+            int perimetr = sideAB + sideBC + sideCA;
+            return perimetr;
+        }
+
+        public void TriangleInformation(int perimetr)
+        {
+            Console.WriteLine("Треугольник имеет следующие данные :\n"
+                + "Сторона AB = " + sideAB
+                + "\nСторона BC = " + sideBC
+                + "\nСторона CA = " + sideCA
+                + "\nПериметр треугольника = " + perimetr);
+        }
+
+    }
+
+    class TriangleInput : Triangle
+    {
         public void GetSideLengths()
         {
             Console.WriteLine("Введите длины сторон: \n");
@@ -436,22 +477,6 @@ namespace _10Zadach
                 Environment.Exit(0);
             }
         }
-
-        public int GetPeriment()
-        {
-            int perimetr = sideAB + sideBC + sideCA;
-            return perimetr;
-        }
-
-        public void TriangleInformation(int perimetr)
-        {
-            Console.WriteLine("Треугольник имеет следующие данные :\n"
-                + "Сторона AB = " + sideAB
-                + "\nСторона BC = " + sideBC
-                + "\nСторона CA = " + sideCA
-                + "\nПериметр треугольника = " + perimetr);
-        }
-
     }
 
     /// <summary>
@@ -461,68 +486,14 @@ namespace _10Zadach
     /// </summary>
     class MailSend
     {
-        int index = 170001;// индекс
-        string city = "тверь";// город
-        string street = "ул.Спартака";//улица
-        int house = 39;// дом
-        int corps = 0;//корпус
-        int numApartment = 400;// номер квартиры
+        protected int index = 170001;// индекс
+        protected string city = "тверь";// город
+        protected string street = "ул.Спартака";//улица
+        protected int house = 39;// дом
+        protected int corps = 0;//корпус
+        protected int numApartment = 400;// номер квартиры
 
-        string texyLetter;//текст письма 
-
-        /// <summary>
-        /// вписать данные получателя
-        /// </summary>
-        public void WriteInfo()
-        {
-            try
-            {
-
-                Console.WriteLine("Введите все данные:");
-
-                Console.Write("Индекс = ");
-                index = Convert.ToInt32(Console.ReadLine());
-
-                Console.Write("город = ");
-                city = Console.ReadLine();
-
-                Console.Write("название улицы = ");
-                street = Console.ReadLine();
-
-                Console.Write("номер дома = ");
-                house = Convert.ToInt32(Console.ReadLine());
-
-                Console.Write("номер корпуса = ");
-                try
-                {
-                    corps = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    corps = 0;
-
-                }
-
-                Console.Write("номер квартиры = ");
-                try
-                {
-                    numApartment = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    numApartment = 0;
-                }
-
-                Console.WriteLine("Содерживое письма = ");
-                texyLetter = Console.ReadLine();
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        protected string texyLetter;//текст письма 
 
         /// <summary>
         /// вывод адресса получателя
@@ -546,6 +517,62 @@ namespace _10Zadach
         }
     }
 
+    class MailSendInput : MailSend
+    {
+        /// <summary>
+        /// вписать данные получателя
+        /// </summary>
+        public void WriteInfo()
+        {
+            try
+            {
+                Console.WriteLine("Введите все данные:");
+
+                Console.Write("Индекс = ");
+                index = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("город = ");
+                city = Console.ReadLine();
+
+                Console.Write("название улицы = ");
+                street = Console.ReadLine();
+
+                Console.Write("номер дома = ");
+                house = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("номер корпуса = ");
+                try
+                {
+                    corps = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    corps = 0;
+                }
+
+                Console.Write("номер квартиры = ");
+                try
+                {
+                    numApartment = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    numApartment = 0;
+                }
+
+                Console.WriteLine("Содерживое письма = ");
+                texyLetter = Console.ReadLine();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+    }
+
     /// <summary>
     /// Класс «Окружность», содержащая поля с координатами центра 
     /// окружности и радиуса, а также методы, вычисляющие длину окружности и
@@ -553,18 +580,8 @@ namespace _10Zadach
     /// </summary>
     class Circumference
     {
-        public int[] center = new int[2];//кординвты центра
-        int radius = 15; // радиус
-
-        /// <summary>
-        /// ввести радиус
-        /// </summary>
-        public void GenRadius()
-        {
-            Console.Write("Введите значение радиуса = ");
-
-            radius = Convert.ToInt32(Console.ReadLine());
-        }
+        protected int[] center = new int[2];//кординвты центра
+        protected int radius = 15; // радиус
 
         /// <summary>
         /// найти длинну окружности
@@ -589,10 +606,20 @@ namespace _10Zadach
         }
     }
 
+    class CircumferenceInput : Circumference
+    {
+        public void GetRadius()
+        {
+            Console.Write("Введите значение радиуса = ");
+
+            radius = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+
     class Square
     {
-        int[] lu = new int[2]; // координаты верхней левой
-        int len = 10; // длинна стороны
+        protected int[] lu = new int[2]; // координаты верхней левой
+        protected int len = 10; // длинна стороны
 
         /// <summary>
         /// найти периметр
@@ -614,6 +641,15 @@ namespace _10Zadach
             double square = len * len;
 
             return square;
+        }
+    }
+
+    class SquareInput : Square 
+    {
+        public void GetLen()
+        {
+            Console.Write("Введите длину стороны - ");
+            len = Convert.ToInt32(Console.ReadLine());
         }
     }
 }
